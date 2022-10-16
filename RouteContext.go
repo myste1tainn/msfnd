@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
+	log "github.com/myste1tainn/hexlog"
 	"github.com/spf13/viper"
 )
 
@@ -70,7 +71,7 @@ func (r *RouteContext) repackWithInternalScope() *RouteContext {
 	}
 	privateKeyBlock, _ := pem.Decode([]byte(privateKey))
 	if privateKeyBlock == nil {
-		log.Errorf("[error] %s: new jwt cannot be generated, private key block decode is nil, privateKey = %s", structName, &privateKey)
+		log.Errorf("[error] %s: new jwt cannot be generated, private key block decode is nil, privateKey = %s", structName, privateKey)
 		return r
 	}
 

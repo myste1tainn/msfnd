@@ -2,12 +2,14 @@ package msfnd
 
 import (
 	"fmt"
+
+	"github.com/gin-gonic/gin"
 )
 
-type HealthCheckFn = func(ctx app.AppContext) error
+type HealthCheckFn = func(ctx *gin.Context) error
 
-func HealthHandler(checker ...HealthCheckFn) app.AppHandler {
-	return func(ctx app.AppContext) {
+func HealthHandler(checker ...HealthCheckFn) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
 		for _, checker := range checker {
 			err := checker(ctx)
 			if err != nil {

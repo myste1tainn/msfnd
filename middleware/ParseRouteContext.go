@@ -6,6 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	log "github.com/myste1tainn/hexlog"
+	"github.com/myste1tainn/msfnd"
 )
 
 type HeaderWithJwt struct {
@@ -24,10 +28,10 @@ type HeaderWithJwt struct {
 	SpanId         string `header:"spanId"`
 }
 
-func ParseRouteContext() app.AppHandler {
+func ParseRouteContext() gin.HandlerFunc {
 	var logName = "ParseRouteContext"
-	return func(ctx app.AppContext) {
-		log.Debugf("[debug] %s: activated, going to parse for headers = %s", logName, ctx.Headers())
+	return func(ctx *gin.Context) {
+		log.Debugf("[debug] %s: activated, going to parse for headers = %s", logName, ctx.Request.Header)
 
 		var obj HeaderWithJwt
 		if err := ctx.BindHeader(&obj); err != nil {
@@ -73,7 +77,7 @@ func ParseRouteContext() app.AppHandler {
 			return
 		}
 
-		routeContext := getRouteContxt(ctx)
+		routeContext := GetRouteContext(ctx)
 		err = json.Unmarshal(jsonData, routeContext)
 		routeContext.Authorization = auth
 		if err != nil {
@@ -84,14 +88,6 @@ func ParseRouteContext() app.AppHandler {
 
 		forwardKeyToRouteContext(obj, routeContext)
 		ctx.Set(msfnd.KeyRouteContext, routeContext)
-	}
-}
-
-func getRouteContxt(ctx app.AppContext) *msfnd.RouteContext {
-	if rctx, ok := ctx.Get(msfnd.KeyRouteContext).(*msfnd.RouteContext); !ok {
-		return &msfnd.RouteContext{}
-	} else {
-		return rctx
 	}
 }
 
