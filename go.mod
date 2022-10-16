@@ -3,7 +3,6 @@ module github.com/myste1tainn/msfnd
 go 1.18
 
 require (
-	github.com/myste1tainn/hexfnd v0.1.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/spf13/viper v1.12.0
 	golang.org/x/exp v0.0.0-20220915105810-2d61f44442a3
@@ -45,7 +44,6 @@ require (
 )
 
 require (
-	github.com/myste1tainn/hexlog v1.0.8
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gofiber/fiber/v2 v2.37.0 // indirect
@@ -55,6 +53,7 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/myste1tainn/hexlog v0.1.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/rs/zerolog v1.28.0 // indirect
